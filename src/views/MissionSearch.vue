@@ -6,11 +6,16 @@
       <li>Test</li>
     </ul>
   </div>
+    <div>
+        <h1>Mission Search page</h1>
+        <MissionCarousel/>
+    </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from "vue";
 import { supabase } from "../lib/supabaseClient";
+import MissionCarousel from '../components/MissionCarousel.vue';
 
 const npcs = ref([]);
 
