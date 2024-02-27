@@ -2,7 +2,7 @@
   <div>
     <h1>Mission Search page</h1>
     <ul>
-      <li v-for="npc in npcs" :key="npc.npc_id">{{ npc.name }}</li>
+      <li v-for="npc in npcs" :key="npc.id">{{ npc.name }}</li>
       <li>Test</li>
     </ul>
   </div>
