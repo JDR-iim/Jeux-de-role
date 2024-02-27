@@ -8,7 +8,7 @@
   </div>
     <div>
         <h1>Mission Search page</h1>
-        <MissionCarousel/>
+        <CarouselVue/>
     </div>
 </template>
 
@@ -16,6 +16,7 @@
 import { ref, onMounted } from "vue";
 import { supabase } from "../lib/supabaseClient";
 import MissionCarousel from '../components/MissionCarousel.vue';
+import CarouselVue from "../components/three/Carousel.vue";
 
 const npcs = ref([]);
 
