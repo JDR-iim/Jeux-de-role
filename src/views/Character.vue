@@ -46,7 +46,9 @@
         </div>
         <div>05</div>
 
-        <div>10</div>
+        <div>
+            <Button @click="send()" class="mt-10">Enregistrer</Button>
+        </div>
       </div>
 
     </div>
