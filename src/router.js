@@ -6,6 +6,7 @@ import Login from './views/Login.vue';
 import Register from './views/Register.vue';
 import MissionSearch from './views/MissionSearch.vue';
 import UserProfile from './views/UserProfile.vue';
+import Character from './views/Character.vue'
 import { supabase } from './lib/supabaseClient';
 
 let localUser;
@@ -37,6 +38,11 @@ const routes = [
         name: 'Game',
         component: Game,
         meta: { requiresAuth: true }
+    },
+    {
+        path: '/Character',
+        name: 'Character',
+        component: Character,
     },
     {
         path: '/user-profile',
