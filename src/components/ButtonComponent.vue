@@ -1,7 +1,5 @@
 <template>
-    <button id='button' class="mt-4">
-        <p> {{title}}</p>
-    </button>
+    <button id='button' class="mt-4 rounded-none">{{ title }}</button>
 </template>
     
 <script>
@@ -11,7 +9,7 @@ export default {
 </script>
 
 <style scoped>
-#button p{
+button {
     background: #0A98FF;
     text-decoration: none;
     color: #fff;

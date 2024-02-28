@@ -3,6 +3,9 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      fontFamily: {
+        'oswald': 'Oswald, sans-serif'
+      },
       colors: {
         primary: '#1F1F1F',
         secondary: '#ffffff',
