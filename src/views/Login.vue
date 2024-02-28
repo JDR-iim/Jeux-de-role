@@ -4,8 +4,14 @@
             <h1>Identification</h1>
             <p class="mt-5">Bon retour, agent. Veuillez saisir vos informations d'identification ci-dessous.</p>
             <div class="mt-10">
-                <Input inputType="email"  v-model="email" labelText="Identifiant (mail)"  class="mb-10" />
-                <Input inputType="password" v-model="password" labelText="Mot de passe"  />
+                <div>
+                    <label for="email">Identifiant (mail)</label>
+                    <input class="block mt-4 border-b-2 w-full mb-10 border-b-highlight bg-transparent focus:outline-none pb-2" id="email" type="email" v-model="email" />
+                </div>
+                <div>
+                    <label for="password">Mot de passe</label>
+                    <input class="block mt-4 border-b-2 w-full mb-10 border-b-highlight bg-transparent focus:outline-none pb-2" id="password" type="password" v-model="password" />
+                </div>
                 <Button @click="signIn()" class="mt-10">Je me connecte</Button>
             </div>
             <div class="w-full text-center mt-8">
@@ -19,9 +25,8 @@
 </template>
 
 <script setup>
-    import Input from '../components/Input.vue'
-    import DescBox from '../components/DescBox.vue'
-    import Button from '../components/Button.vue'
+    import DescBox from '../components/DescBox.vue';
+    import Button from '../components/Button.vue';
 
     import { ref } from "vue";
     import { supabase } from "../lib/supabaseClient";
@@ -40,7 +45,7 @@
         if (error) {
             alert("Error logging in : " + error.message);
         } else {
-            router.push("/");
+            router.push("/mission-search");
         }
     }
 </script>
