@@ -3,6 +3,7 @@
       <h1>character list</h1>
       <br />
       <li v-for="character in characters" :key="character.id">{{ character }}</li>
+      <li v-for="skill in skills" :key="skill.id">{{ skill.name }}</li>
   
       <br />
   
@@ -44,10 +45,66 @@
                 </div>
             </div>
         </div>
-        <div>05</div>
-
         <div>
-            <Button @click="send()" class="mt-10">Enregistrer</Button>
+            <h2>Skills</h2>
+            <div>
+                <ul class="grid grid-rows-2 grid-flow-col gap-2">
+                    <li v-for="(caracteristique, index) in social" :key="index">
+                        <input type="checkbox" :id="'checkbox' + index" v-model="caracteristique.checked">
+                        <label :for="'checkbox' + index">{{ caracteristique.nom }}</label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div>
+            <div class=" justify-between">
+                <div>
+                    <div>
+                        <div>
+                            <label for="name">Nom complet</label>
+                            <input class="block mt-4 border-b-2 w-full mb-10 border-b-highlight bg-transparent focus:outline-none pb-2" id="name" type="text" v-model="name" />
+                        </div>
+                        <div>
+                            <label for="profession">Profession</label>
+                            <input class="block mt-4 border-b-2 w-full mb-10 border-b-highlight bg-transparent focus:outline-none pb-2" id="profession" type="text" v-model="profession" />
+                        </div>
+                        <div>
+                            <label for="autorisation">Autorisation</label>
+                            <input class="block mt-4 border-b-2 w-full mb-10 border-b-highlight bg-transparent focus:outline-none pb-2" id="autorisation" type="text" v-model="autorisation" />
+                        </div>
+                        <div>
+                            <label for="rp">Résistance physique</label>
+                            <input class="block mt-4 border-b-2 w-full mb-10 border-b-highlight bg-transparent focus:outline-none pb-2" id="rp" type="number" v-model="rp" />
+                        </div>
+                        <div>
+                            <label for="rm">Résistance Mentale</label>
+                            <input class="block mt-4 border-b-2 w-full mb-10 border-b-highlight bg-transparent focus:outline-none pb-2" id="rm" type="number" v-model="rm" />
+                        </div>
+                        <div>
+                            <label for="rs">Résistance social</label>
+                            <input class="block mt-4 border-b-2 w-full mb-10 border-b-highlight bg-transparent focus:outline-none pb-2" id="rs" type="number" v-model="rs" />
+                        </div>
+                        <div class="flex justify-between">
+                            <div>
+                                <label for="MP">MP</label>
+                                <input class="block mt-4 border-b-2 w-7 mb-10 border-b-highlight bg-transparent focus:outline-none pb-2" id="MP" type="number" v-model="MP" />
+                            </div>
+                            <div>
+                                <label for="PS">PS</label>
+                                <input class="block mt-4 border-b-2 w-7 mb-10 border-b-highlight bg-transparent focus:outline-none pb-2" id="PS" type="number" v-model="PS" />
+                            </div>
+                            <div>
+                                <label for="MS">MS</label>
+                                <input class="block mt-4 border-b-2 w-7 mb-10 border-b-highlight bg-transparent focus:outline-none pb-2" id="MS" type="number" v-model="MS" />
+                            </div>
+                        </div>
+                        <Button @click="send()" class="mt-10 border-b-highlight">Enregistrer</Button>
+                    </div>
+                </div>
+                <div class="w-5/12 pb-10">
+                    <DescBox />
+                </div>
+            </div>
         </div>
       </div>
 
@@ -65,9 +122,19 @@
   getSession();
   
   const characters = ref([]);
+  const skills = ref([]);
   const physical = ref([]);
   const mental = ref([]);
   const social = ref([]);
+  const name = ref("");
+  const profession = ref("");
+  const autorisation = ref("");
+  const rp = ref("");
+  const rm = ref("");
+  const rs = ref("");
+  const MP = ref("");
+  const PS = ref("");
+  const MS = ref("");
 
   physical.value = [
   { nom: 'Agile', checked: false },
@@ -101,24 +168,21 @@ social.value = [
     console.log(data)
     characters.value = data;
   }
-  
+  async function getSkills() {
+    const { skillsdata } = await supabase.from("Skills").select();
+    console.log(skillsdata)
+    skills.value = data;
+  }
   onMounted(() => {
     getcharter();
+    getSkills();
   });
   
   async function getSession() {
     account.value = await supabase.auth.getSession();
   }
   
-  async function logout() {
-    const { error } = await supabase.auth.signOut();
-  
-    if (error) {
-      alert("Error logging out: " + error.message);
-    } else {
-      router.push("/login");
-    }
-  }
+
   </script>
   
   <style scoped></style>
