@@ -2,7 +2,7 @@
     <div>
       <h1>character list</h1>
       <br />
-      <li v-for="character in characters" :key="character.id">{{ character }}</li>
+      <!-- <li v-for="character in characters" :key="character.id">{{ character }}</li> -->
       <li v-for="skill in skills" :key="skill.id">{{ skill.name }}</li>
   
       <br />
@@ -98,7 +98,7 @@
                                 <input class="block mt-4 border-b-2 w-7 mb-10 border-b-highlight bg-transparent focus:outline-none pb-2" id="MS" type="number" v-model="MS" />
                             </div>
                         </div>
-                        <Button @click="send()" class="mt-10 border-b-highlight">Enregistrer</Button>
+                        <button @click="send()" class="mt-10 border-b-highlight">Enregistrer</button>
                     </div>
                 </div>
                 <div class="w-5/12 pb-10">
@@ -118,7 +118,6 @@
   import { useRouter } from "vue-router";
   
   const account = ref();
-  const router = useRouter();
   getSession();
   
   const characters = ref([]);
@@ -129,6 +128,7 @@
   const name = ref("");
   const profession = ref("");
   const autorisation = ref("");
+  const hero_points = ref(1);
   const rp = ref("");
   const rm = ref("");
   const rs = ref("");
@@ -163,23 +163,58 @@ social.value = [
   { nom: 'Eloquent', checked: false },
   // ... Ajoutez les autres caractéristiques avec checked initialisé à false
 ];
-  async function getcharter() {
-    const { data } = await supabase.from("Characters").select();
-    console.log(data)
-    characters.value = data;
+//   async function getcharter() {
+//     const { data, error } = await supabase.from("Characters").select();
+    
+//     if (error) {
+//      console.error('Error inserting data into Characters:', error.message);
+//     }else{
+//         characters.value = data;
+//     }
+//     // console.log(data)
+
+//   }
+  async function send() {
+  try {
+    const { data, error } = await supabase
+      .from('Characters')
+      .upsert([{ name: name.value,user_id:account.value, profession: profession.value , physical_traits: physical.value, social_traits: social.value,
+        mental_traits: mental.value, physical_resistance: rp.value, social_resistance: rs.value,
+        mental_resistance: rm.value, ms: MS.value, ps: PS.value, ss: MS.value, hero_points: hero_points.value}]);
+
+    if (error) {
+    //   console.error('Error inserting data into Characters:', error.message);
+    } else {
+    //   console.log('Data inserted successfully:', data);
+    }
+  } catch (error) {
+    console.error('Error inserting data into Characters:', error.message);
   }
+}
   async function getSkills() {
-    const { skillsdata } = await supabase.from("Skills").select();
-    console.log(skillsdata)
-    skills.value = data;
+  try {
+    const { data, error } = await supabase.from("Skills").select();
+    if (error) {
+      console.error('Error fetching skills:', error.message);
+    } else {
+      skills.value = data;
+    }
+    // console.log(skills.value)
+
+  } catch (error) {
+    console.error('Error fetching skills:', error.message);
   }
+}
+  
   onMounted(() => {
-    getcharter();
+    // getcharter();
     getSkills();
   });
   
   async function getSession() {
-    account.value = await supabase.auth.getSession();
+      const session = await supabase.auth.getSession();
+      account.value = session.data.session.user.id
+        console.log(account.value)
   }
   
 
