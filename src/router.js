@@ -15,7 +15,6 @@ const routes = [
         path: '/',
         name: 'Home',
         component: Home ,
-        meta: { requiresAuth: true }
     },
     {
         path: '/login',
@@ -30,12 +29,14 @@ const routes = [
     {
         path: '/mission-search',
         name: 'MissionSearch',
-        component: MissionSearch
+        component: MissionSearch,
+        meta: { requiresAuth: true }
     },
     {
         path: '/Game',
         name: 'Game',
-        component: Game
+        component: Game,
+        meta: { requiresAuth: true }
     },
     {
         path: '/user-profile',

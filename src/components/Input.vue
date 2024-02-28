@@ -1,8 +1,8 @@
 <!-- ChildComponent.vue -->
 <template>
     <div>
-    <label :for="inputId">{{ labelText }}</label>
-    <input :type="inputType" :id="inputId" v-model="value" />
+        <label class="" :for="inputId">{{ labelText }}</label>
+        <input class="block mt-4 border-b-2 w-full border-b-highlight bg-transparent focus:outline-none pb-2" :type="inputType" :id="inputId" v-model="value" />
     </div>
 </template>
 
