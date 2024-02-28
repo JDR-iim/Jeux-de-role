@@ -29,12 +29,15 @@
   <div>
       <CarouselVue/>
   </div>
+
+  <div ref="alanBtnContainer"></div>
 </template>
 
 <script setup>
   import { ref, onMounted } from "vue";
   import { supabase } from "../lib/supabaseClient";
   import CarouselVue from "../components/Carousel.vue";
+  import alanBtn from '@alan-ai/alan-sdk-web';
   import * as openaiapi from "openai";
 
   const npcs = ref([]);
@@ -42,6 +45,16 @@
 
   const newsSelected = ref({});
   const scenario = ref("");
+
+
+alanBtn({ 
+  key: '361c7ff7844290718df06daa4182aeb82e956eca572e1d8b807a3e2338fdd0dc/stage',
+  onCommand: (commandData) => {
+    if (commandData.command === 'go:back') {
+      //call client code that will react to the received command
+    }
+  },
+});
 
   async function getNpcs() {
     const { data } = await supabase.from("npc").select();
@@ -87,6 +100,8 @@
 
     scenario.value = response.choices[0].message.content;
   }
+
+
 </script>
 
 <style scoped></style>

@@ -104,19 +104,31 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { supabase } from "../lib/supabaseClient";
 
 import Button from '../components/Button.vue'
 
 
 const account = ref();
+const user_id = ref();
 getSession();
+
+const characters = ref([]);
+
+async function getcharter() {
+  const { data } = await supabase.from("Characters").select().eq('user_id',user_id.value );
+  console.log(data)
+  characters.value = data;
+}
+
+onMounted(() => {
+  getcharter();
+});
 
 async function getSession() {
   account.value = await supabase.auth.getSession();
-  console.log(account);
+  user_id.value = account.value.data.session.user.id
 }
 </script>
-
 <style scoped></style>
