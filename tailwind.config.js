@@ -10,6 +10,7 @@ module.exports = {
         primary: '#1F1F1F',
         secondary: '#ffffff',
         highlight: '#0A98FF',
+        red: '#850000',
       },
       screens: {
         'max-2xl': {'max': '1535px'},
