@@ -45,3 +45,7 @@ h5{
 .descBox{
     scroll-margin: 15px 30px;
 }
+
+input:focus, button:focus{
+    outline: none;
+}
