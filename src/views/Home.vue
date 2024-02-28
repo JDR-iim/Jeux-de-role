@@ -64,7 +64,7 @@ async function askGPT(content) {
 const submit = () => {
     if (secretCodeInput.value === 'S.E.N.T.I.N.E.L') {
         store.dispatch('setIsActive', true);
-        router.push('/login')
+        router.push('/mission-search')
     } else {
         store.dispatch('setIsActive', false);
     }
