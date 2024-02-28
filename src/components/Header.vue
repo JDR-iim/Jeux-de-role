@@ -18,7 +18,7 @@
     const currentRouteName = route.name;
 
     // Check if current route requires authentication
-    const requiresAuth = route.meta.requiresAuth || false;
+    const requiresAuth = route.meta.requiresAuth || true;
 </script>
 
 <template>
