@@ -2,6 +2,7 @@
 <script setup>
     import { ref } from 'vue';
     import { useRoute } from 'vue-router';
+    import { supabase } from "../lib/supabaseClient";
 
     // Initialize dropdown visibility
     const isDropdownVisible = ref(false);
@@ -19,6 +20,23 @@
 
     // Check if current route requires authentication
     const requiresAuth = route.meta.requiresAuth || true;
+    const account = ref();
+    getSession();
+
+    async function getSession() {
+    account.value = await supabase.auth.getSession();
+    console.log(account);
+    }
+
+    async function logout() {
+        const { error } = await supabase.auth.signOut();
+
+        if (error) {
+            alert("Error logging out: " + error.message);
+        } else {
+            router.push("/login");
+        }
+    }
 </script>
 
 <template>
@@ -26,10 +44,10 @@
         <div>Logo à venir</div>
         <div class="flex items-center" v-if="requiresAuth">
             <div class="mr-4 relative">
-                <p class="cursor-pointer" @click="toggleDropdown" :class="{ 'blue-text': isDropdownVisible }">Agent Adam</p>
+                <p class="cursor-pointer" @click="toggleDropdown" :class="{ 'blue-text': isDropdownVisible }">Agent <span v-if="account">{{ account.data.session.user.user_metadata.username }}</span></p>
                 <div v-if="isDropdownVisible" class="profilDropdown bg-white text-black p-2 absolute top-8 right-0">
-                    <p class="mb-2 cursor-pointer">Mon profil</p>
-                    <p class="cursor-pointer">Deconnexion</p>
+                    <router-link class=" w-full py-2 px-10 cursor-pointer" to="/profile">Profil</router-link>
+                    <p class="cursor-pointer py-2 px-5" @click="logout()">Deconnexion</p>
                 </div>
             </div>
             <div class="profilImg"></div>
@@ -56,7 +74,7 @@
     color: #0A98FF;
 }
 
-p:hover{
+p:hover, a:hover{
     color: #0A98FF;
 }
 </style>
