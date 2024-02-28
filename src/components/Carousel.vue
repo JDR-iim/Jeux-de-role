@@ -1,5 +1,5 @@
 <template>
-  <div class="image-carousel">
+  <div class="image-carousel cursor-pointer">
     <div class="carousel-container" ref="carousel" 
     @mousedown="startDrag"
     @mouseup="stopDrag"
