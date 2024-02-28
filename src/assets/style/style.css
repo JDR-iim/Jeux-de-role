@@ -4,18 +4,44 @@
 @tailwind components;
 @tailwind utilities;
 
+/* width */
+.descBox::-webkit-scrollbar {
+    width: 10px;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #0A98FF; 
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #088ae7; 
+}
+
 body{
     background-color: #1F1F1F;
     font-family: "Lato", sans-serif;
     background-size: 36px 36px;
     background-image:  repeating-linear-gradient(to right, rgba(39, 38, 38, 0.259), rgba(39, 38, 38, 0.259) 1.8px, #1F1F1F 1.8px, #1F1F1F);
     color: white;
+    font-size: 14px;
+    text-align: justify;
+    scroll-behavior: smooth;
 }
 
-h1, h2, h3, h4, h5, h6{
+h1, h2, h3, h4, h5, h6, label{
     font-family: "Oswald", sans-serif;
 }
 
 h1{
     font-size: 3em;
+}
+
+h5{
+    font-size: 16px;
+}
+
+.descBox{
+    scroll-margin: 15px 30px;
 }

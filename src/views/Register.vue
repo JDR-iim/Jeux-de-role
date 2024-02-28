@@ -1,43 +1,52 @@
 <template>
-  <div>
-    <h1>Register page</h1>
-    <br />
-    <input placeholder="Username" v-model="username" type="text" /> <br />
-    <br />
-    <input placeholder="Email" v-model="email" type="email" /> <br />
-    <br />
-    <input placeholder="Password" v-model="password" type="password" /> <br />
-    <br />
-    <button @click="signUp()">Sign up</button>
-  </div>
+    <div class="flex justify-between">
+        <div class="w-3/12 mt-5">
+            <h1>Inscription</h1>
+            <p class="mt-5">Rejoignez nos d'agents et plonger au cœur de l'action !</p>
+            <div class="mt-10">
+                <Input inputType="text" v-model="username" labelText="Nom complet"  class="mb-10" />
+                <Input inputType="email" v-model="email" labelText="Adresse e-mail"  class="mb-10" />
+                <Input inputType="password" v-model="password" labelText="Mot de passe"  />
+                <Button class="mt-10" @click="signUp()">Je me connecte</Button>
+            </div>
+            <div class="w-full text-center mt-8">
+                <router-link class=" underline underline-offset-1" to="/login">S'identifier</router-link>
+            </div>
+        </div>
+        <div class="w-5/12 pb-10">
+            <DescBox />
+        </div>
+    </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { supabase } from "../lib/supabaseClient";
+    import Input from '../components/Input.vue'
+    import DescBox from '../components/DescBox.vue'
+    import Button from '../components/Button.vue'
 
-const username = ref("");
-const email = ref("");
-const password = ref("");
+    import { ref } from "vue";
+    import { supabase } from "../lib/supabaseClient";
 
-async function signUp() {
-  const { data, error } = await supabase.auth.signUp({
-    email: email.value,
-    password: password.value,
-    options: {
-      data: {
-        username: username.value,
-      },
-    },
-  });
+    const username = ref("");
+    const email = ref("");
+    const password = ref("");
 
-  if (error) {
-    console.error("Error signing up:", error);
-    alert("Error signing up : " + error.message);
-  } else {
-    alert("Sign up successful");
-  }
-}
+    async function signUp() {
+        const { data, error } = await supabase.auth.signUp({
+            email: email.value,
+            password: password.value,
+            options: {
+            data: {
+                username: username.value,
+            },
+            },
+        });
+
+        if (error) {
+            console.error("Error signing up:", error);
+            alert("Error signing up : " + error.message);
+        } else {
+            alert("Sign up successful");
+        }
+    }
 </script>
-
-<style scoped></style>
