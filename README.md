@@ -94,7 +94,7 @@ for the database:
 - [ ] Clone the repo :
 
   ```sh
-  git clone git@github.com:fifi-dev/eat2gether-v2.git
+  git clone git@github.com:JDR-iim/Jeux-de-role.git
   ```
 
 - [ ] Install the dependancies
